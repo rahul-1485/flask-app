@@ -6,6 +6,7 @@ app = Flask(__name__)
 def hello():
     return "Hello, CI/CD!"
 
+
 @app.route("/add", methods=["GET"])
 def add_numbers():
     try:
@@ -16,13 +17,23 @@ def add_numbers():
         return jsonify({"error": "Invalid input"}), 400
 
 
-# ✅ NEW: subtraction route
 @app.route("/subtract", methods=["GET"])
 def subtract_numbers():
     try:
         a = int(request.args.get("a", 0))
         b = int(request.args.get("b", 0))
         return jsonify({"result": a - b})
+    except ValueError:
+        return jsonify({"error": "Invalid input"}), 400
+
+
+# ✅ NEW: multiply route
+@app.route("/multiply", methods=["GET"])
+def multiply_numbers():
+    try:
+        a = int(request.args.get("a", 0))
+        b = int(request.args.get("b", 0))
+        return jsonify({"result": a * b})
     except ValueError:
         return jsonify({"error": "Invalid input"}), 400
 
